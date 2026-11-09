@@ -1,0 +1,4 @@
+# Netlify: the finished site lives in site/, nothing to build
+[build]
+  publish = "site"
+  command = ""
