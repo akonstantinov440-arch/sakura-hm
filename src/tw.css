@@ -1,0 +1,25 @@
+/* Utilities only: no preflight, so the hand-written site CSS stays untouched. */
+@layer theme, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+@source "../components";
+@source "./";
+
+@theme {
+  --color-muted-foreground: #8a6f66;
+  --color-foreground: #4a3530;
+  --color-background: #f8f0ea;
+  --color-card: #ffffff;
+  --color-muted: #fbf3ef;
+  --color-border: rgba(185, 128, 106, 0.25);
+  --color-input: rgba(246, 180, 210, 0.3);
+  --color-ring: #f6b4d2;
+  --color-primary: #f6b4d2;
+  --color-primary-foreground: #1a1016;
+  --color-destructive: #e8457f;
+  --color-destructive-foreground: #ffffff;
+  --color-accent: #2a1d29;
+  --color-accent-foreground: #f5eef1;
+  --color-secondary: #2a1d29;
+  --color-secondary-foreground: #f5eef1;
+}
