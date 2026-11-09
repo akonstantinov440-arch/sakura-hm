@@ -1,67 +1,10 @@
 import * as React from "react"
 import { createRoot } from "react-dom/client"
 
-import DoodleCrewFooter from "@/components/ui/doodle-crew-footer-sunny"
-import { VariableFontHover } from "@/components/ui/variable-font-hover"
 import { AnimatedGradient } from "@/components/ui/animated-gradient"
-import DataRain from "@/components/ui/data-rain"
 import AnimatedText from "@/components/ui/animated-text"
 import { MotionConfig } from "motion/react"
 import { SakuraPricing } from "./sakura-pricing"
-import { SakuraFeatures } from "./sakura-features"
-
-function SakuraIntro() {
-  return (
-    <DoodleCrewFooter
-      palette={{ background: "transparent" }}
-      groundBleed
-      as="section"
-      preset="sakura"
-      wordmark="САКУРА"
-      brand=""
-      blurb=""
-      tagline=""
-      actions={[]}
-      columns={[]}
-      copyright=""
-      legal={[]}
-      socials={[]}
-      backToTop={false}
-      crew={[{ kind: "bird", letter: 2, seat: "top", offset: 0.05, scale: 1.4, name: "Пип", says: "Записывайтесь, не стесняйтесь!" }]}
-      doodles={["petal"]}
-      doodleCount={18}
-      fontFamily={'"Montserrat", "Arial Black", sans-serif'}
-      serifFamily={'"Playfair Display", Georgia, serif'}
-      height="calc(100svh - 68px)"
-    />
-  )
-}
-
-function SakuraHeadline() {
-  return (
-    <div className="flex min-h-50 flex-col items-center justify-center gap-2 px-6 py-20 text-center" style={{ fontFamily: '"Roboto Flex", "Montserrat", sans-serif' }}>
-      <p className="text-muted-foreground text-sm">Наведите на заголовок</p>
-      <VariableFontHover
-        className="cursor-default text-5xl tracking-tight text-[#F6B4D2] md:text-7xl"
-        fromFontVariationSettings="'wght' 100, 'slnt' 0"
-        label="Красота без сюрпризов."
-        staggerDuration={0.02}
-        staggerFrom="first"
-        toFontVariationSettings="'wght' 900, 'slnt' -10"
-        transition={{ duration: 0.5, type: "spring" }}
-      />
-      <VariableFontHover
-        className="cursor-default text-5xl text-muted-foreground tracking-tight md:text-7xl"
-        fromFontVariationSettings="'wght' 900, 'slnt' -10"
-        label="Всё как договорились."
-        staggerDuration={0.02}
-        staggerFrom="last"
-        toFontVariationSettings="'wght' 100, 'slnt' 0"
-        transition={{ duration: 0.5, type: "spring" }}
-      />
-    </div>
-  )
-}
 
 // One shared, slowly flowing backdrop behind the whole page. Still for reduced-motion visitors.
 function SiteBackground() {
@@ -96,10 +39,7 @@ const mount = (id: string, node: React.ReactNode) => {
 }
 
 mount("bg-root", <SiteBackground />)
-// Streams of light that flow down the page and part around the cursor, in sakura pinks.
-mount("vfh-root", <SakuraHeadline />)
 mount("popular-root", <SakuraPricing />)
-mount("features-root", <SakuraFeatures />)
 
 // Section headings: when one scrolls into view, its caps line rises letter by letter
 // and its italic echo follows word by word. Phones get words for both, so no word breaks mid-way.

@@ -15,12 +15,16 @@ def read(name):
 
 h = h.replace('<link rel="stylesheet" href="assets/style.css">', "<style>\n" + read("style.css") + "\n</style>")
 h = h.replace('<link rel="stylesheet" href="assets/tw.css">', "<style>\n" + read("tw.css") + "\n</style>")
-h = h.replace('<link rel="stylesheet" href="assets/doodle.css">', "<style>\n" + read("doodle.css") + "\n</style>")
 h = h.replace('<script src="assets/app.js"></script>', "<script>\n" + read("app.js") + "\n</script>")
 h = h.replace('<script src="assets/doodle.js" defer></script>', "<script>\n" + read("doodle.js").replace("</script", "<\\/script") + "\n</script>")
-for f in ["logo-mark.png", "logo-mark-sm.png", "photo-nails.jpg", "photo-color.jpg", "photo-master.jpg", "photo-desk.jpg", "photo-brows.jpg"]:
+fonts_css = read("fonts.css")
+for ff in sorted(set(re.findall(r"url\(fonts/([^)]+)\)", fonts_css))):
+    fb = base64.b64encode(open(SITE + "assets/fonts/" + ff, "rb").read()).decode()
+    fonts_css = fonts_css.replace("url(fonts/" + ff + ")", "url(data:font/woff2;base64," + fb + ")")
+h = h.replace('<link rel="stylesheet" href="assets/fonts.css">', "<style>\n" + fonts_css + "\n</style>")
+for f in ["logo-mark.webp", "logo-mark-sm.webp", "photo-nails.webp", "photo-color.webp", "photo-master.webp", "photo-desk.webp", "photo-brows.webp"]:
     b = base64.b64encode(open(SITE + "assets/" + f, "rb").read()).decode()
-    h = h.replace("assets/" + f, ("data:image/png;base64," if f.endswith(".png") else "data:image/jpeg;base64,") + b)
+    h = h.replace("assets/" + f, "data:image/webp;base64," + b)
 left = re.findall(r'(?:src|href)="assets/[^"]+"', h)
 assert not left, left
 open(OUT + "sakura-preview.html", "w", encoding="utf-8").write(h)

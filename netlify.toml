@@ -2,3 +2,14 @@
 [build]
   publish = "site"
   command = ""
+
+# Fonts, photos and the logo never change under the same name, so browsers can keep them for a year
+[[headers]]
+  for = "/assets/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/assets/*.webp"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
