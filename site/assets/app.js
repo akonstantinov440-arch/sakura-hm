@@ -1,3 +1,5 @@
+// Refuse to run inside someone else's frame (protects against clickjacking).
+if (window.top !== window.self) { try { window.top.location = window.self.location.href; } catch (e) { document.documentElement.style.display = "none"; } }
 (function(){
 'use strict';
 

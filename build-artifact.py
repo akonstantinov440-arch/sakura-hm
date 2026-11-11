@@ -7,6 +7,8 @@ SITE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "site") + "/"
 OUT = os.path.dirname(os.path.abspath(__file__)) + "/"
 
 h = open(SITE + "index.html", encoding="utf-8").read()
+# the one-file preview inlines its scripts, which the site's security policy would block
+h = re.sub(r'<meta http-equiv="Content-Security-Policy"[^>]*>\n', "", h)
 
 
 def read(name):
@@ -15,7 +17,8 @@ def read(name):
 
 h = h.replace('<link rel="stylesheet" href="assets/style.css">', "<style>\n" + read("style.css") + "\n</style>")
 h = h.replace('<link rel="stylesheet" href="assets/tw.css">', "<style>\n" + read("tw.css") + "\n</style>")
-h = h.replace('<script src="assets/app.js"></script>', "<script>\n" + read("app.js") + "\n</script>")
+app_js = re.sub(r"^// Refuse to run inside.*\n.*\n", "", read("app.js"))  # the preview is shown inside a frame
+h = h.replace('<script src="assets/app.js"></script>', "<script>\n" + app_js + "\n</script>")
 h = h.replace('<script src="assets/doodle.js" defer></script>', "<script>\n" + read("doodle.js").replace("</script", "<\\/script") + "\n</script>")
 fonts_css = read("fonts.css")
 for ff in sorted(set(re.findall(r"url\(fonts/([^)]+)\)", fonts_css))):
